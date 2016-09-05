@@ -1,35 +1,36 @@
 package ar.com.osde.esb.component.changelogManager.app;
 
 
+import ar.com.osde.esb.component.changelogManager.app.controller.ComponentController;
+import ar.com.osde.esb.component.changelogManager.app.controller.ServiceController;
+import ar.com.osde.esb.component.changelogManager.app.utils.JsonTransformer;
+import ar.com.osde.esb.component.changelogManager.app.utils.ServerConfig;
 import ar.com.osde.esb.component.changelogManager.domain.Component;
 import ar.com.osde.esb.component.changelogManager.domain.Service;
 import ar.com.osde.esb.component.changelogManager.domain.Version;
-import ar.com.osde.esb.component.changelogManager.domain.repository.ComponentRepository;
-import ar.com.osde.esb.component.changelogManager.domain.repository.ServiceRepository;
 import ar.com.osde.esb.component.changelogManager.persistence.ConnectionManager;
+import com.google.gson.Gson;
 import com.mongodb.MongoException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import static spark.Spark.*;
+
 
 public class Server {
 
-    /* Create repositories */
-    private static ServiceRepository repoServicios = ServiceRepository.getInstance();
-    private static ComponentRepository repoComponentes = ComponentRepository.getInstance();
+   public static void main( String[] args ) throws UnknownHostException, MongoException {
 
+       /* Configure connection to mongo DB */
+       ConnectionManager.init();
 
-    public static void main( String[] args ) throws UnknownHostException, MongoException {
+       /* Configure spark server */
+       ServerConfig.configureServer(8080, "/webapp");
 
-        /* Configure connection to mongo DB */
-        ConnectionManager.init();
-
-
-        get("/services/:name", (req, res) -> {
-
-            repoServicios.get(req.params(":name"));
-        });
+       /* Configure controllers */
+       Gson gson = new Gson();
+       JsonTransformer jsonTransformer = new JsonTransformer(gson);
+       new ServiceController(gson, jsonTransformer).register();
+       new ComponentController(gson, jsonTransformer).register();
 
         /* Create some data */
         List<Version> versiones = new ArrayList<>();
@@ -57,8 +58,8 @@ public class Server {
         repoComponentes.add(appName); */
 
         /* Get data */
-        System.out.println(repoServicios.get("socio").getName());
-        System.out.println(repoComponentes.get("osde-esb-camel-interceptors").getName());
+        /*System.out.println(repoServicios.get("socio").getName());
+        System.out.println(repoComponentes.get("osde-esb-camel-interceptors").getName()); */
 
         /* Delete data */
         /* repoServicios.delete(socio); **/

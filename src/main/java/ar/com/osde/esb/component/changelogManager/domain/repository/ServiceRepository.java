@@ -4,6 +4,7 @@ import ar.com.osde.esb.component.changelogManager.domain.Service;
 import ar.com.osde.esb.component.changelogManager.persistence.ConnectionManager;
 import com.mongodb.WriteResult;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;
@@ -39,8 +40,9 @@ public class ServiceRepository implements Repository<Service> {
 
 
     @Override
-    public void add(Service entity) {
-        db.save(entity);
+    public Boolean add(Service entity) {
+        Key<Service> result = db.save(entity);
+        return result.getId() != null;
     }
 
     @Override

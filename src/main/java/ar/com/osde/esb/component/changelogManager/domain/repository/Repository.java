@@ -23,7 +23,7 @@ public interface Repository<T> {
      * @apiNote  Save an entity
      *
      **/
-    void add(T entity);
+    Boolean add(T entity);
 
     /**
      * @apiNote  List all collection elements

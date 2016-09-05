@@ -4,6 +4,7 @@ import ar.com.osde.esb.component.changelogManager.domain.Component;
 import ar.com.osde.esb.component.changelogManager.persistence.ConnectionManager;
 import com.mongodb.WriteResult;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 
 import java.util.List;
@@ -39,8 +40,10 @@ public class ComponentRepository implements Repository<Component> {
     }
 
     @Override
-    public void add(Component entity) {
-        db.save(entity);
+    public Boolean add(Component entity) {
+
+        Key<Component> result = db.save(entity);
+        return result.getId() != null;
     }
 
     @Override
