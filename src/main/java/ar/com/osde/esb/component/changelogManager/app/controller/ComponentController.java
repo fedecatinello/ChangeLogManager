@@ -36,7 +36,7 @@ public class ComponentController {
 
         /** Get all service changelogs **/
 
-        get("/components", "application/json;charset=utf-8", (request, response) -> {
+        get("/projects", "application/json;charset=utf-8", (request, response) -> {
             response.type("application/json;charset=utf-8");
             return repoComponentes.all();
         }, this.jsonTransformer);

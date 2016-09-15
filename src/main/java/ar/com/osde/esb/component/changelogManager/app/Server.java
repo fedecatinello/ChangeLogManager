@@ -8,6 +8,7 @@ import ar.com.osde.esb.component.changelogManager.app.utils.ServerConfig;
 import ar.com.osde.esb.component.changelogManager.domain.Component;
 import ar.com.osde.esb.component.changelogManager.domain.Service;
 import ar.com.osde.esb.component.changelogManager.domain.Version;
+import ar.com.osde.esb.component.changelogManager.domain.repository.ComponentRepository;
 import ar.com.osde.esb.component.changelogManager.persistence.ConnectionManager;
 import com.google.gson.Gson;
 import com.mongodb.MongoException;
@@ -18,13 +19,15 @@ import java.util.List;
 
 public class Server {
 
-   public static void main( String[] args ) throws UnknownHostException, MongoException {
+    private static ComponentRepository repoComponentes = ComponentRepository.getInstance();
+
+    public static void main(String[] args ) throws UnknownHostException, MongoException {
 
        /* Configure connection to mongo DB */
        ConnectionManager.init();
 
        /* Configure spark server */
-       ServerConfig.configureServer(8080, "/webapp");
+       ServerConfig.configureServer(8000, "/webapp");
 
        /* Configure controllers */
        Gson gson = new Gson();
@@ -52,9 +55,9 @@ public class Server {
 
         /* Save data */
         /* repoServicios.add(socio);
-        repoServicios.add(subsidio);
+        repoServicios.add(subsidio); */
 
-        repoComponentes.add(interceptors);
+        /* repoComponentes.add(interceptors);
         repoComponentes.add(appName); */
 
         /* Get data */

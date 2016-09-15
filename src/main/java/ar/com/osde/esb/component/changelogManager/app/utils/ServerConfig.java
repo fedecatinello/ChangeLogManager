@@ -10,6 +10,7 @@ public class ServerConfig {
 
         port(serverPort);
         staticFileLocation(staticResources);
+
     }
 
 }
