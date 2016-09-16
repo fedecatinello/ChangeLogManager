@@ -11,7 +11,7 @@ app.service('projectService', function ($http) {
 });
 
 
-app.service('usuariosService', function ($http) {
+app.service('versionDetailsService', function ($http) {
 
   this.findAll = function (callback, errorHandler) {
     $http.get('/usuarios').then(callback, errorHandler);

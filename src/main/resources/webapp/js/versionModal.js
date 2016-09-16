@@ -3,25 +3,21 @@
 app.directive('versionModal', function () {
   return {
     restrict: 'E',
-    templateUrl: 'templates/asignar_usuarios.html',
-    controllerAs: 'usuariosCtrl',
-    bindToController: true,
+    templateUrl: 'templates/version_details.html',
     scope: {
-      callback: "&",
       project: "="
     },
-    controller: function (usuariosService) {
+    controllerAs: 'versionCtrl',
+    bindToController: true,
+    controller: function () {
+
       var self = this;
-      this.asignatario = null;
-      this.asignar = this.callback();
-      this.asignatariosPosibles = [];
 
-      usuariosService.findAll(function (response) {
-        self.asignatariosPosibles = response.data;
-      }, function () {
-        self.errors.push(mensaje);
-      });
+      self.errors = [];
+
+      //if (self.project.versions.length == 0)
+      // self.errors.push("No se encontraron versiones para este proyecto");
+
     }
-
   };
 });

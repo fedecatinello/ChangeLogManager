@@ -37,17 +37,17 @@ app.controller('ProjectController', function (projectService, $timeout) {
 
   // AGREGAR VERSION A UN PROYECTO
   this.addVersion = function (proj) {
-    self.tareaSeleccionada = proj;
+    self.selectedProject = proj;
   };
 
   // MOSTRAR VERSIONES DE UN PROYECTO
   this.getVersions = function (proj) {
-    self.tareaSeleccionada = proj;
+    self.selectedProject = proj;
   };
 
   // Se produce la asignación propiamente dicha
   this.asignar = function (asignatario) {
-	self.tareaSeleccionada.asignadoA = asignatario;
+	self.selectedProject.asignadoA = asignatario;
     projectService.update(self.tareaSeleccionada, function () {
       }, notificarError);
   };
